@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block fulltitle %}Sistema de Información Geográfica{% endblock %}
+
+{% block content %}
+<div id="content">
+  <h1 class="module-preheader">Registro en Sistema de Información Geográfica</h1>
+  <div class="module">
+    <div class="module-content">
+      <h2 class="module-header">Paso 1: Registro de Información</h2>
+      <h3>Ingrese sus datos para crear su cuenta</h3>
+      <p class="summary">Una vez creada su cuenta se habilitarán opciones extras.</p>
+      <div class="formfields">
+	<form method="post" action="/accounts/register/">
+	  <table class="formtable">
+	    <tbody>
+	      {% for field in form %}
+	      <tr>
+		<th>
+		  {{ field.errors }}
+		  {{ field.label_tag }}: {{ field }}
+		</th>
+	      </tr>
+	      {% endfor %}
+	      <tr class="submitrow">
+		<th>&nbsp;</th>
+		<td>
+		  <p class="clearwrap">
+		    <button class="button default" type="submit">Enviar</button>
+		  </p>
+		</td>
+	      </tr>
+	    </tbody>
+	  </table>
+	</form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,90 @@
+var map;
+
+function init() {
+
+    var max_value = 500000;
+    var symbol = new Geometry('circle', 1, max_value);
+
+    var options = {
+        projection: new OpenLayers.Projection("EPSG:900913"),
+        displayProjection: new OpenLayers.Projection("EPSG:4326"),
+        units: "m",
+        numZoomLevels: 18,
+        maxResolution: 156543.0339,
+        controls: []
+    };
+
+    map = new OpenLayers.Map('map', options);
+
+    var template = {
+        strokeColor : 'rgb(220,0,0)', 
+        strokeWidth: 2,
+        strokeOpacity: 0.9,
+        fillColor : 'rgb(220,0,0)', 
+        fillOpacity : 0.5, 
+        pointRadius: "${getSize}"
+    };
+
+    var style = new OpenLayers.Style(template);
+    var styleMap = new OpenLayers.StyleMap({
+        'default': style, 
+        'select': {
+            fillColor: 'red',
+            fillOpacity: 0.75
+        }
+    });
+    
+    var gmap = new OpenLayers.Layer.Google(
+        "Google Streets", // the default
+        {isBaseLayer:true}
+    );
+
+    map.addLayers([gmap]);
+    //creating a tool to read in WKT formatted geospatial data
+    var wkt_f = new OpenLayers.Format.WKT();
+
+    // Loop through all emprendimientos and make a vector layer for each
+    {% for object in object_list %}
+    var point_{{ object.id }} = wkt_f.read('{{ object.mpoly.centroid }}');
+    point_{{ object.id }}.data = { 'empr_name': {{ object.name }},'empr_code': {{ object.code }}, };
+    {% endfor %}
+
+    var companies_vector = new OpenLayers.Layer.Vector("Emprendimientos");
+    companies_vector.addFeatures([{% for object in object_list %}point_{{ object.id }}{% if not forloop.last %},{% endif %}{% endfor %}]);
+
+    var selectControl = new OpenLayers.Control.SelectFeature(companies_vector, 
+							     {
+								 hover: true;
+								 onSelect: select_feature;
+								 onUnselect: unselect_feature;
+							     });
+    map.addLayer(companies_vector);
+    map.addControl(selectControl);
+    selectControl.activate();
+    var lon=-79.2; 
+    var lat=-1.9;
+    var zoom=20;
+    map.setCenter(new OpenLayers.LonLat(lon, lat), zoom);
+
+    function onPopupClose(evt) {
+        selectControl.unselect(selectedFeature);
+    }
+    function select_feature(feature) {
+        selectedFeature = feature;
+        popup = new OpenLayers.Popup.AnchoredBubble("chicken", 
+                                new OpenLayers.LonLat(-12590000, 5150000),
+                                new OpenLayers.Size(210,90), // Size of the bubble
+						    "<div class='bubblewrap'><p class='county-hed'>" + feature.data.empr_name + "</p><p style='margin-bottom:0px;'>Rate:&nbsp;" + feature.data.empr_code + "%</p>", 
+                                null, 
+                                false, // closebox?
+                                onPopupClose // on close function
+                                );
+        feature.popup = popup;
+        map.addPopup(popup);
+    }
+    function unselect_feature(feature) {
+        map.removePopup(feature.popup);
+        feature.popup.destroy();
+        feature.popup = null;
+    }
+};

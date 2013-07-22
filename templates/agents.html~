@@ -1,0 +1,5 @@
+{% extends "homepage.html" %}
+
+{% block result_queries %}
+Informacion extendida de {{ type }}
+{% endblock %}

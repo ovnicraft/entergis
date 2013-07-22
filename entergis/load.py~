@@ -1,0 +1,53 @@
+import os
+from django.contrib.gis.utils import LayerMapping
+from models import StateAreas, Poblados, Provincias
+
+state_mapping = {
+    'area': 'AREA',
+    'perimeter': 'PERIMETER',
+    'st99_d00': 'ST99_D00_',
+    'st99_d00i': 'ST99_D00_I',
+    'state': 'STATE',
+    'name': 'NAME',
+    'lsad': 'LSAD',
+    'region': 'REGION',
+    'division': 'DIVISION',
+    'lsad_trans': 'LSAD_TRANS',
+    'mpoly': 'POLYGON',
+    }
+
+s_shp = os.path.abspath(os.path.join(os.path.dirname(__file__), 'data/st99_d00.shp'))
+
+poblados_mapping = {
+    'f_code': 'f_code',
+    'nombre': 'nombre',
+    'provincia': 'provincia',
+    'tipo': 'tipo',
+    'soc': 'soc',
+    'point': 'POINT',
+    }
+
+p_shp = os.path.abspath(os.path.join(os.path.dirname(__file__), 'data/poblados/poblados.shp'))
+
+prov_mapping = {
+    'dpa_provin': 'DPA_PROVIN',
+    'dpa_despro': 'DPA_DESPRO',
+    'mpoly': 'POLYGON',
+    }
+
+prov_shp = os.path.abspath(os.path.join(os.path.dirname(__file__), 'data/provincias/NACIONAL_POR_PROVINCIAS.shp'))
+
+def run_prov(verbose=True):
+    lm = LayerMapping(Provincias, prov_shp, prov_mapping, transform=False, encoding='iso-8859-1')
+    lm.save(strict=True, verbose=verbose)
+
+def run_p(verbose=True):
+    lm = LayerMapping(Poblados, p_shp, poblados_mapping,
+                      transform=False, encoding='iso-8859-1')
+    lm.save(strict=True, verbose=verbose)    
+
+def run(verbose=True):
+    lm = LayerMapping(StateAreas, s_shp, state_mapping,
+                      transform=False, encoding='iso-8859-1')
+    lm.save(strict=True, verbose=verbose)
+

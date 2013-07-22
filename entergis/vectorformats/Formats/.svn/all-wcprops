@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/featureserver/!svn/ver/626/trunk/vectorformats/vectorformats/Formats
+END
+Format.py
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/featureserver/!svn/ver/599/trunk/vectorformats/vectorformats/Formats/Format.py
+END
+CSV.py
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/featureserver/!svn/ver/599/trunk/vectorformats/vectorformats/Formats/CSV.py
+END
+OSM.py
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/featureserver/!svn/ver/599/trunk/vectorformats/vectorformats/Formats/OSM.py
+END
+WFS.py
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/featureserver/!svn/ver/599/trunk/vectorformats/vectorformats/Formats/WFS.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/featureserver/!svn/ver/472/trunk/vectorformats/vectorformats/Formats/__init__.py
+END
+Django.py
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/featureserver/!svn/ver/626/trunk/vectorformats/vectorformats/Formats/Django.py
+END
+GeoRSS.py
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/featureserver/!svn/ver/599/trunk/vectorformats/vectorformats/Formats/GeoRSS.py
+END
+KML.py
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/featureserver/!svn/ver/599/trunk/vectorformats/vectorformats/Formats/KML.py
+END
+GeoJSON.py
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/featureserver/!svn/ver/598/trunk/vectorformats/vectorformats/Formats/GeoJSON.py
+END
+HTML.py
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/featureserver/!svn/ver/599/trunk/vectorformats/vectorformats/Formats/HTML.py
+END
+WKT.py
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/featureserver/!svn/ver/599/trunk/vectorformats/vectorformats/Formats/WKT.py
+END
+OGR.py
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/featureserver/!svn/ver/599/trunk/vectorformats/vectorformats/Formats/OGR.py
+END

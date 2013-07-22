@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Mapnik WMS</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <style type="text/css">
+    html, body { height: 100%; }
+    body {margin: 0px;}
+    #map {
+      width: 100%;
+      height: 90%;
+    }
+    #featureInfo {
+      width: 100%;
+      height: 10%;
+      border: 1px solid gray;
+    }
+   </style>
+    <script src="OpenLayers.js"></script>
+    <script type="text/javascript">
+        var map, wms, xy;
+
+        function init(){
+            map = new OpenLayers.Map('map',{numZoomLevels: 21});
+            
+            var url = "http://localhost:8080/";
+            
+            wms = new OpenLayers.Layer.WMS("Mapnik WMS Local",url, 
+                {layers: "NACIONAL_POR_PROVINCIAS"}
+                );
+
+            map.addLayers([wms]);
+            map.addControl(new OpenLayers.Control.LayerSwitcher());
+            
+            map.fractionalZoom = true;
+            //map.zoomToMaxExtent();
+            var provincias = new OpenLayers.Bounds(-976841.516338, 9427036.62143, 1392833.80446, 10208376.4172);
+            map.zoomToExtent(provincias);     
+
+
+            map.events.register('click', map, function (e) {
+                OpenLayers.Util.getElement('featureInfo').innerHTML = "Loading... please wait...";
+                var feat_url =  wms.getFullRequestString({
+                                REQUEST: "GetFeatureInfo",
+                                EXCEPTIONS: "application/vnd.ogc.se_inimage",
+                                BBOX: wms.map.getExtent().toBBOX(),
+                                X: e.xy.x,
+                                Y: e.xy.y,
+                                FORMAT: 'image/png',
+                                INFO_FORMAT: 'text/plain',
+                                QUERY_LAYERS: wms.params.LAYERS,
+                                WIDTH: wms.map.size.w,
+                                HEIGHT: wms.map.size.h
+                                });
+                //xy = e.xy;
+                OpenLayers.loadURL(feat_url, false, this, setHTML);
+                Event.stop(e);
+            });
+            
+            function setHTML(response) {
+                  OpenLayers.Util.getElement('featureInfo').innerHTML = response.responseText
+                  //OpenLayers.Util.getElement('clickInfo').innerHTML = 'Clicked @' + xy + '(long/lat: ' + map.getLonLatFromPixel(xy) + ')'
+              }
+            
+
+        }                
+    </script>
+  </head>
+  <body onload="init()">
+      <h2 style="position:absolute; z-index:10000; left: 100px;"><a href="http://bitbucket.org/springmeyer/ogcserver/">Mapnik WMS</a></h2>
+    <div id="map">
+    </div>
+    <div id="featureInfo">
+    </div>
+  </body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="es">
+<head>
+<title>{% block fulltitle %}{% block title %}{% endblock %} | Sistema de Información Geográfica{% endblock %}</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="robots" content="noarchive">
+<link rel="home" title="Home" href="/">
+<script src="/static/adapter/ext/ext-base.js" type="text/javascript"></script>
+<script src="/static/ext-all.js"  type="text/javascript"></script>
+<script type="text/javascript" src="/static/js/ux/SearchField.js"></script>
+<script type="text/javascript" src="/static/js/ux/StatusBar.js"></script>
+<script src="/static/OpenLayers.js" type="text/javascript"></script>
+<script src="/static/GeoExt.js" type="text/javascript"></script>
+<script src="{{ google_api }}" type="text/javascript"></script>
+{% load compress %}
+{% compress js %}
+<script type="text/javascript">
+  {% include "js/system.js" %}
+</script>
+{% endcompress %}
+{% compress css %}
+<link rel="stylesheet" type="text/css" href="/static/resources/css/ext-all.css"></link>
+{% endcompress %}
+</head>
+<body>
+  <div id="desc">
+    <h2>Informacion Adicional</h2>
+  </div>
+<div id="detail2">Detail</div>
+</body>

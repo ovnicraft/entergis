@@ -1,0 +1,15 @@
+NAME "GISMON"
+
+WEB
+   METADATA
+	"wms_title"		"WMS Demo Server"
+	"wms_onlineresource" 	"http://localhost/cgi-bin/mapserv?map=gismon.map&"
+	"wms_srs"		"EPSG:4269 EPSG:4326"
+   END
+END
+
+PROJECTION
+    "init=epsg:42304"
+END
+
+END

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block fulltitle %}Sistema de Información Geográfica{% endblock %}
+
+{% block content %}
+<div id="content">
+  <h1 class="module-preheader">Acceso a tu cuenta en Sistema de Información Geográfica</h1>
+  <div class="module">
+    <div class="module-content">
+      <form method="post" action="/accounts/login">
+	<table class="formtable">
+	  <tbody>
+	    <tr>
+	      <th>
+		{{ form.message.errors }}
+		<label for="id_username">Usuario: </label>
+		{{ form.username}}
+	      </th>
+	    </tr>
+	    <tr>
+	      <th>
+		{{ form.message.errors }}
+		<label for="id_password">Contraseña: </label>
+		{{ form.password }}
+	      </th>
+	      <td>
+		<span class="infotext">
+		  <a href="/accounts/password-change/">Olvidaste tu contraseña?</a>
+		</span>
+	      </td>
+	    </tr>
+	    <tr class="submitrow">
+	      <th>&nbsp;</th>
+	      <td>
+		<button class="button default" type="submit">Entrar</button>
+	      </td>
+	    </tr>
+	  </tbody>
+	</table>
+      </form>
+      <p class="infotext">Tienes un cuenta?
+	<a href="/accounts/register/">Crea una ahora...</a>
+      </p>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
